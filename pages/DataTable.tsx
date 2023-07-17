@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Button, Select, Flex, TableCaption } from "@chakra-ui/react";
 import { DataTableProps } from '../types/DataTableTypes';
 
 const DataTable: React.FC<DataTableProps> = ({ sortable, caption, headers, rows }) => {
-  const [sortField, setSortField] = useState(headers[0]?.field || '');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage] = useState(5);
+    const [sortField, setSortField] = useState('');
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataPerPage] = useState(5);
+  
+    useEffect(() => {
+      if (headers && headers.length > 0) {
+        setSortField(headers[0].field || '');
+      }
+    }, [headers]);
 
   const sortedData = [...rows].sort((a, b) => {
     if (!sortable || !sortField) {
