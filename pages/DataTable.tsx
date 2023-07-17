@@ -14,7 +14,7 @@ const DataTable: React.FC<DataTableProps> = ({ sortable, caption, headers, rows 
     }
   }, [headers]);
 
-  const sortedData = [...rows].sort((a, b) => {
+  const sortedData = [...(rows || [])].sort((a, b) => {
     if (!sortable || !sortField) {
       return 0;
     }
@@ -60,14 +60,14 @@ const DataTable: React.FC<DataTableProps> = ({ sortable, caption, headers, rows 
 
   return (
     <Box overflowX="auto">
-      {rows.length === 0 ? (
+      {rows && rows.length === 0 ? (
         <Progress size="xs" isIndeterminate />
       ) : (
         <Table>
           <TableCaption fontSize="2xl" fontWeight="bold" placement="top">{caption}</TableCaption>
           <Thead>
             <Tr>
-              {headers.map(header => (
+              {headers && headers.map(header => (
                 <Th key={header.field} onClick={() => handleHeaderClick(header.field)} cursor={sortable && header.sortable ? "pointer" : "auto"}>
                   {header.label}
                 </Th>
@@ -75,9 +75,9 @@ const DataTable: React.FC<DataTableProps> = ({ sortable, caption, headers, rows 
             </Tr>
           </Thead>
           <Tbody>
-            {currentPosts.map((item) => (
+            {currentPosts && currentPosts.map((item) => (
               <Tr key={item.id}>
-                {headers.map(header => (
+                {headers && headers.map(header => (
                   <Td key={header.field}>
                     {header.field === 'select' ? (
                       <Select defaultValue={item[header.field].toString()}>
@@ -98,7 +98,7 @@ const DataTable: React.FC<DataTableProps> = ({ sortable, caption, headers, rows 
           </Tbody>
           <tfoot>
             <Tr>
-              <Td colSpan={headers.length}>
+              <Td colSpan={headers && headers.length}>
                 <Flex justifyContent="flex-end">
                   <Button onClick={() => changePage(currentPage - 1)} disabled={currentPage === 1}>Previous</Button>
                   {Array.from({ length: totalPages }, (_, index) => (
