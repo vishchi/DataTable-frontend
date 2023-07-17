@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ChakraProvider, Input, Box } from "@chakra-ui/react";
 import DataTable from './DataTable';
-import { DataType, HeaderType } from './DataTableTypes';
+import { DataType, HeaderType } from '../types/DataTableTypes';
 
 const App: React.FC = () => {
   const [data, setData] = useState<DataType[]>([]);

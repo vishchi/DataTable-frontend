@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Button, Select, Flex, TableCaption } from "@chakra-ui/react";
-import { DataTableProps } from './DataTableTypes';
+import { DataTableProps } from '../types/DataTableTypes';
 
 const DataTable: React.FC<DataTableProps> = ({ sortable, caption, headers, rows }) => {
   const [sortField, setSortField] = useState(headers[0]?.field || '');
