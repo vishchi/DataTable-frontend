@@ -47,7 +47,7 @@ const App: React.FC = () => {
         sortable
         caption="Bookings"
         headers={headers}
-        rows={filteredData}
+        rows={filteredData ? filteredData : []}
       />
     </ChakraProvider>
   );
